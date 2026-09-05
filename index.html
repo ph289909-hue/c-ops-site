@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C-OPS // Central Intelligence & Tactical Security Directorate</title>
+    <title>C-OPS // Core Operations & Intelligence Directorate</title>
     <style>
         :root {
-            --bg-color: #05070a;
-            --panel-bg: #0a0e17;
-            --card-bg: #101622;
-            --accent-cyan: #00f2fe;
+            --bg-color: #030508;
+            --panel-bg: #090d14;
+            --card-bg: #0d121c;
+            --accent-cyan: #00e5ff;
             --accent-blue: #0284c7;
-            --text-main: #e2e8f0;
+            --text-main: #d1d5db;
             --text-muted: #64748b;
-            --border-color: rgba(255, 255, 255, 0.12);
-            --danger-red: #ef4444;
-            --success-green: #10b981;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --danger-red: #dc2626;
+            --warning-amber: #d97706;
+            --success-green: #059669;
+            --classification-bg: #1e1b4b;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,36 +25,33 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* Top Institutional Banner */
-        .gov-banner {
-            background-color: #020408;
-            border-bottom: 1px solid var(--border-color);
-            padding: 6px 20px;
+        /* Top Classification Banner (Agency Style) */
+        .classification-banner {
+            background-color: var(--classification-bg);
+            color: #c7d2fe;
+            text-align: center;
             font-family: 'Courier New', monospace;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .gov-banner span.status {
-            color: var(--success-green);
             font-weight: bold;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            padding: 4px 0;
+            border-bottom: 2px solid var(--accent-cyan);
+            text-transform: uppercase;
         }
 
-        /* Header & Navigation */
+        /* Professional Header */
         header {
-            background: #070a11;
-            border-bottom: 2px solid var(--accent-cyan);
-            padding: 20px 40px;
+            background: #05080f;
+            border-bottom: 1px solid var(--border-color);
+            padding: 25px 40px;
+            position: relative;
         }
 
         .header-container {
@@ -60,7 +59,7 @@
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
             flex-wrap: wrap;
             gap: 20px;
         }
@@ -68,194 +67,221 @@
         .brand-block {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
-        .brand-logo {
-            width: 45px;
-            height: 45px;
-            border: 2px solid var(--accent-cyan);
+        .seal-placeholder {
+            width: 60px;
+            height: 60px;
+            border: 2px dashed var(--text-muted);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Courier New', monospace;
-            font-weight: bold;
-            color: var(--accent-cyan);
-            font-size: 1.2rem;
-            background: rgba(0, 242, 254, 0.05);
-        }
-
-        .brand-title {
-            font-size: 1.4rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #ffffff;
-            font-family: 'Courier New', monospace;
-        }
-
-        .brand-sub {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
-            letter-spacing: 1px;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        .brand-text h1 {
+            font-family: 'Courier New', monospace;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #ffffff;
+            margin-bottom: 4px;
+            line-height: 1;
+        }
+
+        .brand-text p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
             text-transform: uppercase;
         }
 
-        nav { display: flex; gap: 8px; flex-wrap: wrap; }
+        /* Navigation */
+        nav { 
+            display: flex; 
+            gap: 12px; 
+            flex-wrap: wrap; 
+        }
 
         nav button {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 10px 18px;
+            padding: 10px 20px;
             font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        nav button:hover, nav button.active {
-            background: var(--accent-cyan);
-            color: #000000;
+        nav button:hover {
+            background: rgba(0, 229, 255, 0.1);
             border-color: var(--accent-cyan);
+            color: #ffffff;
+        }
+
+        nav button.active {
+            background: var(--text-main);
+            color: #000000;
+            border-color: var(--text-main);
             font-weight: bold;
         }
 
-        /* Hero / Alert Strip */
-        .hero-strip {
-            background: linear-gradient(90deg, rgba(0,242,254,0.1) 0%, rgba(2,132,199,0.05) 100%);
+        /* System Telemetry Strip */
+        .system-strip {
+            background: #080c13;
             border-bottom: 1px solid var(--border-color);
-            padding: 15px 40px;
+            padding: 10px 40px;
             font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
         }
 
-        .hero-container {
+        .system-container {
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
         }
 
         /* Main Workspace Area */
         .main-wrapper {
             max-width: 1400px;
-            margin: 30px auto;
+            margin: 40px auto;
             padding: 0 20px;
             width: 100%;
             flex: 1;
         }
 
-        .layout-grid {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 25px;
-        }
+        .content-section { display: none; animation: fadeIn 0.3s ease; }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        @media (max-width: 900px) {
-            .layout-grid { grid-template-columns: 1fr; }
-        }
-
-        /* Sidebar Component */
-        .sidebar-card {
+        /* Official Document Formatting (Manifesto) */
+        .document-wrapper {
             background: var(--panel-bg);
             border: 1px solid var(--border-color);
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .sidebar-title {
+        .doc-header {
+            border-bottom: 2px solid var(--text-muted);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .doc-title h2 {
             font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
+            font-size: 2.2rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+        }
+
+        .doc-title p {
             color: var(--accent-cyan);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .stat-item {
-            margin-bottom: 12px;
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .stat-value {
             font-family: 'Courier New', monospace;
-            font-size: 0.95rem;
-            color: #ffffff;
-            font-weight: bold;
-        }
-
-        /* Main Content Cards */
-        .content-section { display: none; }
-        .content-section.active { display: block; }
-
-        .section-header {
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
-        .section-header h1 {
-            font-size: 1.8rem;
-            color: #ffffff;
-            letter-spacing: -0.5px;
-        }
-
-        .section-header p {
-            color: var(--text-muted);
             font-size: 0.9rem;
-            margin-top: 5px;
+            letter-spacing: 2px;
         }
 
-        .grid-2 {
+        .doc-meta {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .doc-meta table {
+            width: auto;
+            margin: 0;
+            border: none;
+        }
+
+        .doc-meta td {
+            padding: 3px 10px;
+            border: none;
+            background: transparent;
+            text-align: left;
+        }
+
+        .doc-meta td:first-child {
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .manifesto-body {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #cbd5e1;
+            text-align: justify;
+        }
+
+        .manifesto-body h3 {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin: 40px 0 15px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-transform: uppercase;
+        }
+
+        .manifesto-body p { margin-bottom: 20px; }
+
+        .directive-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
+            gap: 30px;
+            margin-top: 30px;
         }
 
-        @media (max-width: 768px) {
-            .grid-2 { grid-template-columns: 1fr; }
-        }
-
-        .info-card {
+        .directive-card {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 20px;
+            border-left: 3px solid var(--accent-cyan);
+            padding: 25px;
         }
 
-        .info-card h3 {
+        .directive-card h4 {
+            font-family: 'Courier New', monospace;
             font-size: 1rem;
             color: var(--accent-cyan);
             margin-bottom: 10px;
-            font-family: 'Courier New', monospace;
         }
 
-        .info-card p {
-            font-size: 0.9rem;
-            color: var(--text-main);
+        /* Abstract/Summary Box */
+        .abstract-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            margin-bottom: 40px;
+            font-style: italic;
+            border-left: 4px solid var(--text-muted);
         }
 
-        /* Tables */
-        table {
+        /* Tables for other tabs */
+        table.data-table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
-        th {
+        table.data-table th {
             background-color: #090e17;
             color: var(--accent-cyan);
             font-family: 'Courier New', monospace;
@@ -264,294 +290,214 @@
             border: 1px solid var(--border-color);
         }
 
-        td {
+        table.data-table td {
             background-color: var(--panel-bg);
             padding: 12px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        tr:nth-child(even) td { background-color: var(--card-bg); }
-
-        /* Code & Terminal */
+        /* Code Blocks */
         .code-block {
-            background-color: #020408;
+            background-color: #020305;
             border: 1px solid var(--border-color);
-            padding: 15px;
+            padding: 20px;
             font-family: 'Courier New', monospace;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #38bdf8;
             overflow-x: auto;
             margin: 20px 0;
             white-space: pre;
         }
 
-        .terminal-box {
-            background: #020407;
-            border: 1px solid var(--accent-cyan);
-            padding: 20px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            color: #38bdf8;
-        }
-
-        .terminal-output {
-            min-height: 200px;
-            max-height: 350px;
-            overflow-y: auto;
-            margin-bottom: 15px;
-            white-space: pre-wrap;
-        }
-
-        .terminal-input-line { display: flex; align-items: center; }
-        .terminal-prompt { color: var(--accent-cyan); margin-right: 8px; font-weight: bold; }
-        .terminal-input {
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            width: 100%;
-            outline: none;
-        }
-
         /* Footer */
         footer {
-            background: #04060a;
-            border-top: 1px solid var(--border-color);
+            background: #020305;
             padding: 30px 40px;
             margin-top: 40px;
             font-family: 'Courier New', monospace;
             font-size: 0.8rem;
             color: var(--text-muted);
-        }
-
-        .footer-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
         }
     </style>
 </head>
 <body>
 
-<!-- Top Institutional Strip -->
-<div class="gov-banner">
-    <div>OFFICIAL SYSTEM // C-OPS DIRECTORED INFRASTRUCTURE</div>
-    <div>SECURITY LEVEL: <span class="status">HIGH INTEGRITY (NO-LOG POLICY)</span></div>
+<!-- Classification Banner -->
+<div class="classification-banner">
+    UNCLASSIFIED // APPROVED FOR PUBLIC RELEASE // C-OPS DIRECTIVE
 </div>
 
-<!-- Main Header -->
+<!-- Header -->
 <header>
     <div class="header-container">
         <div class="brand-block">
-            <div class="brand-logo">C</div>
-            <div>
-                <div class="brand-title">C-OPS CORE</div>
-                <div class="brand-sub">Tactical Intelligence & Operational Security Directorate</div>
+            <div class="seal-placeholder">C-OPS<br>SEAL</div>
+            <div class="brand-text">
+                <h1>C-OPS DIRECTORATE</h1>
+                <p>Core Operations & Intelligence // Office of the Director</p>
             </div>
         </div>
 
         <nav>
-            <button class="active" onclick="showTab('home', event)">01. VISÃO GERAL</button>
-            <button onclick="showTab('manifesto', event)">02. MANIFESTO</button>
-            <button onclick="showTab('relatorios', event)">03. RELATÓRIOS INTEL</button>
-            <button onclick="showTab('terminal', event)">04. CONSOLE TÁTICO</button>
-            <button onclick="showTab('pgp', event)">05. VALIDAÇÃO PGP</button>
+            <button class="active" onclick="showTab('manifesto', event)">01. MANIFESTO DA DIRETORIA</button>
+            <button onclick="showTab('relatorios', event)">02. RELATÓRIOS</button>
+            <button onclick="showTab('pgp', event)">03. CHAVES PGP</button>
         </nav>
     </div>
 </header>
 
-<!-- Alert & Status Strip -->
-<div class="hero-strip">
-    <div class="hero-container">
-        <div>[ALERTA TÁTICO]: Protocolos de observação passiva operando em capacidade nominal.</div>
-        <div>SISTEMA: <span style="color:var(--accent-cyan)">VERSÃO 2.4.0-PROD</span></div>
+<div class="system-strip">
+    <div class="system-container">
+        <div>SYS_TIME: <script>document.write(new Date().toISOString().split('T')[0]);</script> ZULU</div>
+        <div>CONNECTION: ENCRYPTED (TLS 1.3)</div>
+        <div style="color:var(--success-green);">CLEARANCE: GRANTED</div>
     </div>
 </div>
 
-<!-- Main Layout -->
+<!-- Main Area -->
 <div class="main-wrapper">
-    <div class="layout-grid">
-        
-        <!-- Sidebar Navigation & Telemetry -->
-        <aside>
-            <div class="sidebar-card">
-                <div class="sidebar-title">// Status da Diretoria</div>
-                <div class="stat-item">
-                    <div class="stat-label">Estado de Rede</div>
-                    <div class="stat-value" style="color:var(--success-green)">PROTEGIDO // ISOLADO</div>
+
+    <!-- TAB 1: MANIFESTO -->
+    <div id="manifesto" class="content-section active">
+        <div class="document-wrapper">
+            <div class="doc-header">
+                <div class="doc-title">
+                    <h2>Manifesto Operacional</h2>
+                    <p>DIRETRIZ CENTRAL 001 // DECLARAÇÃO DE PROPÓSITO E DOUTRINA</p>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-label">Atribuição</div>
-                    <div class="stat-value">ANÁLISE DE FONTES ABERTAS</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Região de Operação</div>
-                    <div class="stat-value">GLOBAL / LATAM</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Política de Dados</div>
-                    <div class="stat-value" style="color:var(--accent-cyan)">STRICT NO-LOGS</div>
+                <div class="doc-meta">
+                    <table>
+                        <tr><td>DOC ID:</td><td>COPS-MNF-001A</td></tr>
+                        <tr><td>STATUS:</td><td>VIGENTE</td></tr>
+                        <tr><td>AUTORIDADE:</td><td>DIRETORIA CENTRAL</td></tr>
+                    </table>
                 </div>
             </div>
 
-            <div class="sidebar-card">
-                <div class="sidebar-title">// Módulos Ativos</div>
-                <ul style="list-style:none; font-size: 0.85rem; font-family:'Courier New', monospace;">
-                    <li style="margin-bottom:8px;">[✓] OSINT Passive Engine</li>
-                    <li style="margin-bottom:8px;">[✓] Graph Mapping v2</li>
-                    <li style="margin-bottom:8px;">[✓] PGP Identity Validator</li>
-                    <li style="margin-bottom:8px;">[✓] Threat Matrix Feed</li>
+            <div class="manifesto-body">
+                <div class="abstract-box">
+                    <strong>RESUMO EXECUTIVO:</strong> A Diretoria de Operações e Inteligência (C-OPS) é uma entidade autônoma dedicada à consolidação de doutrinas avançadas de segurança cibernética, inteligência de fontes abertas (OSINT) e mitigação de vulnerabilidades. Este documento estabelece a base filosófica e operacional que rege todas as atividades conduzidas por nossos agentes e sistemas.
+                </div>
+
+                <h3>I. Declaração de Missão</h3>
+                <p>Em um cenário global definido pela hiperconectividade, vigilância em massa e arquiteturas de dados intrusivas, a soberania da informação torna-se o ativo mais crítico de qualquer operação. A missão central da C-OPS é estabelecer superioridade informacional através da observação passiva rigorosa, análise estruturada de dados e aplicação inflexível de protocolos de segurança defensiva.</p>
+                <p>Nossa existência não busca o engajamento direto, mas a compreensão profunda das infraestruturas, fluxos de rede e identidades digitais que compõem o teatro de operações cibernético moderno. Operamos nas sombras dos protocolos de rede, garantindo que nossa visibilidade seja nula enquanto nossa capacidade analítica permanece absoluta.</p>
+
+                <h3>II. Doutrina Operacional</h3>
+                <p>A arquitetura tática da C-OPS repousa sobre quatro pilares imutáveis. O desvio destes princípios constitui violação de integridade operacional e resulta em isolamento imediato da entidade comprometedora.</p>
+
+                <div class="directive-grid">
+                    <div class="directive-card">
+                        <h4>01. Assimetria da Informação (OSINT Passiva)</h4>
+                        <p>A coleta de inteligência deve ser executada exclusivamente por meio de vetores passivos. Proíbe-se o envio de requisições ativas que possam gerar logs, disparar sistemas de detecção de intrusão (IDS) ou alertar a infraestrutura alvo. Nosso rastro deve ser matematicamente indistinguível do ruído de fundo da internet.</p>
+                    </div>
+                    <div class="directive-card">
+                        <h4>02. Validação Tática e Ceticismo Analítico</h4>
+                        <p>Nenhum dado é considerado verdadeiro sem validação criptográfica ou cruzamento de múltiplas fontes independentes. A análise estruturada exige o expurgo de viés cognitivo. Suposições não documentadas são consideradas falhas operacionais críticas.</p>
+                    </div>
+                    <div class="directive-card">
+                        <h4>03. Redução Drástica de Superfície (OPSEC)</h4>
+                        <p>Sistemas, identidades digitais e plataformas de comunicação pertencentes à C-OPS são configurados com base no princípio do menor privilégio e mínima exposição. A infraestrutura deve ser compartimentada, efêmera e capaz de ser autodestruída sem perda de dados críticos.</p>
+                    </div>
+                    <div class="directive-card">
+                        <h4>04. Política de Ephemeralidade (No-Log)</h4>
+                        <p>Não mantemos registros persistentes de tráfego, sessões de usuários ou histórico de conexões em nossos nós de trânsito. A memória da diretoria reside exclusivamente em seus relatórios consolidados; todo o resto é descartado criptograficamente.</p>
+                    </div>
+                </div>
+
+                <h3>III. Estrutura Divisional</h3>
+                <p>Para garantir a execução precisa da nossa Doutrina, a C-OPS é compartimentada em três divisões operacionais, cada uma com autonomia tática e responsabilidades isoladas:</p>
+                <ul>
+                    <li style="margin-bottom: 10px;"><strong>INTEL-CORE:</strong> Responsável pela coleta de sinais, mapeamento de redes, análise de grafos de identidade e produção de relatórios técnicos.</li>
+                    <li style="margin-bottom: 10px;"><strong>SEC-OPS:</strong> Gestão de infraestrutura, auditoria de segurança interna, hardening de sistemas e resposta a incidentes táticos.</li>
+                    <li><strong>CRYPTO-CELL:</strong> Gerenciamento do ciclo de vida de chaves assimétricas, estabelecimento de canais de comunicação seguros e verificação de integridade de arquivos.</li>
                 </ul>
             </div>
-        </aside>
-
-        <!-- Main Content Panel -->
-        <main>
-            <!-- TAB 1: VISÃO GERAL -->
-            <div id="home" class="content-section active">
-                <div class="section-header">
-                    <h1>Painel de Controle e Estrutura Operacional</h1>
-                    <p>Acompanhamento de diretrizes, matriz de inteligência e feeds de pesquisas táticas.</p>
-                </div>
-
-                <div class="grid-2">
-                    <div class="info-card">
-                        <h3>// 01. Coleta e Análise Passiva</h3>
-                        <p>A C-OPS estrutura operações baseadas no consumo de metadados expostos, eliminando qualquer emissão direta de tráfego que possa alertar alvos ou expor o vetor analítico.</p>
-                    </div>
-                    <div class="info-card">
-                        <h3>// 02. Isolamento de Superfície</h3>
-                        <p>Redução agressiva da pegada digital. A integridade dos sistemas é garantida por meio de isolamento rigoroso, descarte de sessões e uso de identificadores criptográficos.</p>
-                    </div>
-                </div>
-
-                <h2>Divisões Técnicas</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Unidade</th>
-                            <th>Foco Tático</th>
-                            <th>Nível de Acesso</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>INTEL-CORE</strong></td>
-                            <td>Mapeamento OSINT Passivo e Grafos de Entidades</td>
-                            <td><span style="color:var(--accent-cyan)">PÚBLICO / DOUTRINÁRIO</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>SEC-OPS</strong></td>
-                            <td>Análise Defensiva e Mitigação de Superfície</td>
-                            <td>INTERNO</td>
-                        </tr>
-                        <tr>
-                            <td><strong>CRYPTO-CELL</strong></td>
-                            <td>Assinaturas PGP, Autenticidade e Verificação</td>
-                            <td>PÚBLICO / CHAVE ABERTA</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- TAB 2: MANIFESTO -->
-            <div id="manifesto" class="content-section">
-                <div class="section-header">
-                    <h1>Manifesto Operacional C-OPS</h1>
-                    <p>Princípios fundamentais que regem a conduta tática e a segurança de dados.</p>
-                </div>
-
-                <div class="info-card" style="margin-bottom: 20px;">
-                    <h3>DIRETRIZ MESTRA: INVISIBILIDADE E PRECISÃO</h3>
-                    <p>Em um ecossistema saturado de dados e vigilância contínua, a verdadeira vantagem operacional pertence àqueles que operam sem expor sua própria infraestrutura. A C-OPS rejeita métodos ruidosos de varredura direta em favor da inteligência extraída de fontes abertas indexadas e agregadas.</p>
-                </div>
-
-                <h2>Pilares de Conduta</h2>
-                <div class="grid-2">
-                    <div class="info-card">
-                        <h3>1. Soberania de Dados</h3>
-                        <p>Nenhuma conclusão é válida sem validação cruzada independente através de múltiplos registros públicos estáticos.</p>
-                    </div>
-                    <div class="info-card">
-                        <h3>2. Resíduo Zero</h3>
-                        <p>Todas as interações digitais devem utilizar rotas e nós projetados para minimizar logs permanentes.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 3: RELATÓRIOS -->
-            <div id="relatorios" class="content-section">
-                <div class="section-header">
-                    <h1>Repositório de Relatórios Técnicos (TR)</h1>
-                    <p>Publicações oficiais e documentação de métodos de análise.</p>
-                </div>
-
-                <div class="info-card" style="margin-bottom:20px;">
-                    <div style="font-family:'Courier New', monospace; font-size:0.8rem; color:var(--accent-cyan);">TECHNICAL REPORT // TR-2026-001</div>
-                    <h2 style="font-size:1.2rem; margin-top:5px; border:none;">Metodologia de Análise Passiva e Mapeamento de Entidades</h2>
-                    <p style="margin-top:10px;">Estudo sobre a utilização de Logs de Transparência de Certificados (CT Logs), PassiveDNS e espelhamento de repositórios para reconstrução de infraestruturas virtuais sem envio de requisições ao alvo.</p>
-                </div>
-
-                <h2>Voto de Coleta Não-Invasiva</h2>
-                <div class="code-block">
-// EXEMPLO DE CORRELAÇÃO DE GRAFO PASSIVO (C-OPS INTEL MODEL)
-[ÂNCORA: DOMÍNIO] ──(CT Logs)──> [SUBDOMÍNIO DEV] ──(Github Search)──> [REPOSITÓRIO EXP.]
-                                                                            │
-[IDENTIDADE CONFIRMADA] <──(PGP Key Match)── [E-MAIL AUTOR] <──(Commit History)┘
-                </div>
-            </div>
-
-            <!-- TAB 4: TERMINAL -->
-            <div id="terminal" class="content-section">
-                <div class="section-header">
-                    <h1>Console Tático de Operações</h1>
-                    <p>Interface direta para interação via linha de comando com a infraestrutura C-OPS.</p>
-                </div>
-
-                <div class="terminal-box">
-                    <div id="terminalOutput" class="terminal-output">C-OPS Mainframe Tactical Terminal v2.4.0
-Digite 'help' para visualizar os comandos do sistema.
-------------------------------------------------------------------</div>
-                    <div class="terminal-input-line">
-                        <span class="terminal-prompt">c-ops@directorate:~$</span>
-                        <input type="text" id="terminalInput" class="terminal-input" autofocus onkeydown="handleCommand(event)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 5: PGP -->
-            <div id="pgp" class="content-section">
-                <div class="section-header">
-                    <h1>Validação Criptográfica PGP</h1>
-                    <p>Chave pública oficial para verificação de assinaturas e comunicados oficiais da C-OPS.</p>
-                </div>
-
-                <div class="code-block">
------BEGIN PGP PUBLIC KEY BLOCK-----
-Version: C-OPS Security Core v2.4
-
-mQENBF/x82EBCADK1gN3m82vXzR8
-9qL3... [C-OPS OFFICIAL PGP KEY FINGERPRINT]
-09A2 B3C4 D5E6 7890 1234 5678 9ABC DEF0 1234 5678
------END PGP PUBLIC KEY BLOCK-----
-                </div>
-            </div>
-
-        </main>
+        </div>
     </div>
+
+    <!-- TAB 2: RELATÓRIOS -->
+    <div id="relatorios" class="content-section">
+        <div class="document-wrapper">
+            <div class="doc-header" style="margin-bottom: 20px;">
+                <div class="doc-title">
+                    <h2>Repositório de Relatórios</h2>
+                    <p>ARQUIVOS OFICIAIS DE INTELIGÊNCIA E PESQUISA</p>
+                </div>
+            </div>
+
+            <p style="color:var(--text-muted); margin-bottom: 30px;">Acesso autorizado aos Technical Reports (TR) e memorandos operacionais desclassificados para uso público.</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th style="width: 15%">ID do Doc</th>
+                        <th style="width: 15%">Data</th>
+                        <th style="width: 50%">Título / Assunto</th>
+                        <th style="width: 20%">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>TR-2026-001</strong></td>
+                        <td>04/09/2026</td>
+                        <td>Metodologia de Análise Passiva via Transparência de Certificados</td>
+                        <td style="color:var(--accent-cyan)">DESCLASSIFICADO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TR-2026-002</strong></td>
+                        <td>--/--/----</td>
+                        <td>Mapeamento de Ameaças em Estruturas IoT Descentralizadas</td>
+                        <td style="color:var(--warning-amber)">EM REDAÇÃO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MEMO-04A</strong></td>
+                        <td>15/08/2026</td>
+                        <td>Diretriz de Atualização de Chaves PGP Rotativas</td>
+                        <td style="color:var(--accent-cyan)">PÚBLICO</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB 3: PGP -->
+    <div id="pgp" class="content-section">
+        <div class="document-wrapper">
+            <div class="doc-header">
+                <div class="doc-title">
+                    <h2>Central de Autenticação Criptográfica</h2>
+                    <p>CHAVE PÚBLICA OFICIAL PGP // C-OPS CRYPTO-CELL</p>
+                </div>
+            </div>
+
+            <p style="margin-bottom: 20px; font-size: 1.05rem; color: #cbd5e1;">A autenticidade de qualquer comunicação, alerta ou relatório originário da Diretoria C-OPS deve ser independentemente verificada contra nossa chave pública oficial. Comunicações não assinadas ou assinadas com chaves revogadas devem ser consideradas comprometidas.</p>
+            
+            <div style="margin: 20px 0; font-family:'Courier New', monospace; color: var(--accent-cyan);">
+                FINGERPRINT: <span style="color:#ffffff;">09A2 B3C4 D5E6 7890 1234 5678 9ABC DEF0 1234 5678</span>
+            </div>
+
+            <div class="code-block">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: C-OPS Crypto-Cell Auth Module v3.1
+
+mQENBF/x82EBCADK1gN3m82vXzR89qL3d4JqW0T5mB9+z8QvX9n5...
+[ BLOCO DE CHAVE PGP DE EXEMPLO - SUBSTITUIR PELA CHAVE REAL ]
+YwE8l3kZ9OqL2xN6mP5+R3b8vW1=
+=a1B2
+-----END PGP PUBLIC KEY BLOCK-----
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<!-- Footer Component -->
+<!-- Footer -->
 <footer>
-    <div class="footer-container">
-        <div>C-OPS DIRECTORED SYSTEM // UNAUTHORIZED MODIFICATION PROHIBITED</div>
-        <div style="color:var(--accent-cyan)">ALL SYSTEMS OPERATIONAL // NO-LOGS ACTIVE</div>
-    </div>
+    <div>USO EXCLUSIVO DO PESSOAL AUTORIZADO // O ACESSO NÃO AUTORIZADO É SUJEITO A AUDITORIA TÁTICA</div>
+    <div style="margin-top: 10px;">C-OPS DIRECTORATE &copy; 2026. Todos os direitos reservados sob protocolo de sigilo.</div>
 </footer>
 
 <script>
@@ -560,33 +506,6 @@ mQENBF/x82EBCADK1gN3m82vXzR8
         document.querySelectorAll('nav button').forEach(button => button.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
-    }
-
-    function handleCommand(e) {
-        if (e.key === 'Enter') {
-            const input = document.getElementById('terminalInput');
-            const output = document.getElementById('terminalOutput');
-            const cmd = input.value.trim().toLowerCase();
-            
-            output.innerHTML += `\nc-ops@directorate:~$ ${input.value}`;
-
-            if (cmd === 'help') {
-                output.innerHTML += `\nComandos disponíveis:\n - help     : Exibe esta mensagem\n - status   : Status da rede e nós\n - units    : Lista as divisões técnicas\n - reports  : Exibe lista de relatórios publicados\n - clear    : Limpa a tela do console`;
-            } else if (cmd === 'status') {
-                output.innerHTML += `\n[NETWORK STATUS]: 100% OPERATIONAL\n[POLICY]: STRICT NO-LOGS ENABLED\n[ACTIVE NODES]: 12/12 ONLINE`;
-            } else if (cmd === 'units') {
-                output.innerHTML += `\n[DIVISÕES]:\n - INTEL-CORE (Análise Passiva)\n - SEC-OPS (Defesa de Superfície)\n - CRYPTO-CELL (Criptografia e PGP)`;
-            } else if (cmd === 'reports') {
-                output.innerHTML += `\n[RELATÓRIOS]:\n - TR-2026-001: Metodologia de Análise Passiva [PUBLICADO]`;
-            } else if (cmd === 'clear') {
-                output.innerHTML = `C-OPS Mainframe Tactical Terminal v2.4.0\n------------------------------------------------------------------`;
-            } else if (cmd !== '') {
-                output.innerHTML += `\nComando não reconhecido: '${cmd}'. Digite 'help' para ajuda.`;
-            }
-
-            input.value = '';
-            output.scrollTop = output.scrollHeight;
-        }
     }
 </script>
 

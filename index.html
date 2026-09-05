@@ -1,340 +1,365 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta name="google-site-verification" content="E252g1j7ADmhyAm4-Tgarr68YdjA5U_L7J5OmoJAQAQ" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C-OPS | Center for Intelligence & Covert Operations</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <title>C-OPS // Core Operations & Tactical Intelligence</title>
     <style>
         :root {
-            --bg-dark: #05070a;
-            --bg-card: rgba(11, 15, 25, 0.75);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-highlight: rgba(0, 242, 254, 0.3);
+            --bg-color: #07090e;
+            --panel-bg: #0b0f17;
             --accent-cyan: #00f2fe;
-            --accent-glow: rgba(0, 242, 254, 0.12);
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-muted: #475569;
-            --font-mono: 'JetBrains Mono', monospace;
-            --font-sans: 'Space Grotesk', sans-serif;
+            --accent-blue: #38bdf8;
+            --text-main: #cbd5e1;
+            --text-muted: #64748b;
+            --border-color: rgba(255, 255, 255, 0.1);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-primary);
-            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             line-height: 1.6;
-            min-height: 100vh;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.08) 0%, transparent 60%),
-                linear-gradient(var(--border-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
-            background-size: 100% 100%, 50px 50px, 50px 50px;
+            padding: 20px 10px;
         }
 
         .container {
-            max-width: 1050px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 0 28px;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
         header {
-            padding: 36px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 2px solid var(--accent-cyan);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: 1.3rem;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: #ffffff;
             letter-spacing: 2px;
         }
 
-        .brand-indicator {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-cyan);
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--accent-cyan);
-        }
+        .brand span { color: var(--accent-cyan); }
 
-        .nav-meta {
-            font-family: var(--font-mono);
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
+        nav { display: flex; gap: 5px; flex-wrap: wrap; }
 
-        .status-badge {
+        nav button {
+            background: transparent;
+            border: 1px solid var(--accent-cyan);
             color: var(--accent-cyan);
-            background: var(--accent-glow);
-            padding: 4px 12px;
-            border-radius: 4px;
-            border: 1px solid rgba(0, 242, 254, 0.25);
-        }
-
-        .hero {
-            padding: 90px 0 60px;
-        }
-
-        .sys-tag {
-            font-family: var(--font-mono);
-            color: var(--accent-cyan);
-            font-size: 0.85rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            display: block;
-        }
-
-        .hero h1 {
-            font-size: 3.4rem;
-            font-weight: 700;
-            line-height: 1.15;
-            letter-spacing: -1px;
-            margin-bottom: 24px;
-            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-lead {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 820px;
-            font-weight: 400;
-            margin-bottom: 40px;
-        }
-
-        .manifesto-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--accent-cyan);
-            padding: 40px;
-            border-radius: 8px;
-            backdrop-filter: blur(12px);
-            margin-bottom: 60px;
-        }
-
-        .manifesto-title {
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--accent-cyan);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .manifesto-title::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border-color);
-        }
-
-        .manifesto-body p {
-            color: var(--text-primary);
-            font-size: 1.05rem;
-            margin-bottom: 18px;
-            line-height: 1.75;
-        }
-
-        .manifesto-body p:last-child {
-            margin-bottom: 0;
-        }
-
-        .section-header {
-            margin: 60px 0 30px;
-        }
-
-        .section-header h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-bottom: 60px;
-        }
-
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 32px;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .card:hover {
-            border-color: var(--border-highlight);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        .card-num {
-            font-family: var(--font-mono);
+            padding: 8px 12px;
+            font-family: 'Courier New', monospace;
             font-size: 0.8rem;
-            color: var(--accent-cyan);
-            margin-bottom: 14px;
-            display: block;
-        }
-
-        .card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 14px;
-            font-weight: 600;
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .pgp-box {
-            background: rgba(5, 7, 10, 0.9);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 30px;
-            font-family: var(--font-mono);
-            margin-bottom: 60px;
-        }
-
-        .pgp-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .pgp-key {
-            color: var(--text-muted);
-            font-size: 0.78rem;
-            line-height: 1.5;
-            white-space: pre-wrap;
-            word-break: break-all;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 18px;
+            cursor: pointer;
             border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.2s ease;
         }
+
+        nav button:hover, nav button.active {
+            background: var(--accent-cyan);
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .meta-box {
+            background-color: #0d121d;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+        }
+
+        .meta-row { display: flex; margin-bottom: 4px; }
+        .meta-label { width: 140px; color: var(--text-muted); }
+        .meta-val { color: #ffffff; font-weight: bold; }
+        .cyan { color: var(--accent-cyan); }
+
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+
+        h1, h2 { color: #ffffff; font-weight: bold; letter-spacing: -0.5px; }
+        h1 { font-size: 1.6rem; margin-bottom: 15px; }
+        h2 { font-size: 1.1rem; text-transform: uppercase; margin-top: 30px; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+        h2 span.num { color: var(--accent-cyan); font-family: 'Courier New', monospace; }
+
+        p { margin-bottom: 15px; text-align: justify; }
+
+        .callout {
+            background-color: rgba(0, 242, 254, 0.05);
+            border-left: 3px solid var(--accent-cyan);
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .callout-title {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: var(--accent-cyan);
+            margin-bottom: 5px;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.85rem; }
+        th { background-color: #111827; color: var(--accent-cyan); font-family: 'Courier New', monospace; text-align: left; padding: 10px; border: 1px solid var(--border-color); }
+        td { background-color: #0b0f19; padding: 10px; border: 1px solid rgba(255, 255, 255, 0.08); }
+        tr:nth-child(even) td { background-color: #0d1322; }
+
+        .code-block {
+            background-color: #030508;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #a7f3d0;
+            overflow-x: auto;
+            margin: 20px 0;
+            white-space: pre;
+        }
+
+        /* Console/Terminal */
+        .terminal-box {
+            background: #020408;
+            border: 1px solid var(--accent-cyan);
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #38bdf8;
+            margin-top: 20px;
+        }
+
+        .terminal-output {
+            min-height: 120px;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            white-space: pre-wrap;
+        }
+
+        .terminal-input-line {
+            display: flex;
+            align-items: center;
+        }
+
+        .terminal-prompt { color: var(--accent-cyan); margin-right: 8px; font-weight: bold; }
+        .terminal-input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            width: 100%;
+            outline: none;
+        }
+
+        ul { margin-left: 20px; margin-bottom: 20px; }
+        li { margin-bottom: 8px; }
 
         footer {
-            padding: 40px 0;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: var(--font-mono);
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+            font-family: 'Courier New', monospace;
             font-size: 0.8rem;
             color: var(--text-muted);
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.3rem; }
-            .manifesto-box { padding: 24px; }
-            footer { flex-direction: column; gap: 16px; text-align: center; }
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <div class="brand">
-                <div class="brand-indicator"></div>
-                C-OPS
-            </div>
-            <div class="nav-meta">
-                <span>CLEARANCE: LEVEL-0</span>
-                <span class="status-badge">DIRECTIVE // ACTIVE</span>
-            </div>
-        </header>
+<div class="container">
+    <header>
+        <div class="brand">C-OPS <span>// INTEL</span></div>
+        <nav>
+            <button class="active" onclick="showTab('manifesto', event)">01. MANIFESTO</button>
+            <button onclick="showTab('relatorio', event)">02. OSINT TR-001</button>
+            <button onclick="showTab('terminal', event)">03. CONSOLE</button>
+            <button onclick="showTab('pgp', event)">04. PGP KEY</button>
+        </nav>
+    </header>
 
-        <section class="hero">
-            <span class="sys-tag">// COVERATION OPERATIONS & INTELLIGENCE AGENCY</span>
-            <h1>Análise Sistemática de Dados & Operações Invisíveis</h1>
-            <p class="hero-lead">A C-OPS é uma iniciativa independente dedicada ao desenvolvimento de doutrina em inteligência de fontes abertas (OSINT), segurança operacional (OPSEC) e auditoria de presença digital.</p>
-        </section>
-
-        <div class="manifesto-box">
-            <div class="manifesto-title">00 // MANIFESTO INSTITUCIONAL</div>
-            <div class="manifesto-body">
-                <p>Na era da hiperexposição e da vigilância automatizada, a informação não é apenas um ativo; é a métrica primária de soberania e sobrevivência operacional. A vastidão do ecossistema digital gera ruído contínuo, mas deixa pegadas indeléveis para aqueles treinados no rigor da observação passiva.</p>
-                <p>A <strong>C-OPS</strong> foi constituída sob a premissa fundamental de que a maior autoridade não reside na visibilidade estridente, mas na precisão invisível. Operamos fora da dependência de plataformas proprietárias e redes sociais efêmeras. Nossa presença existe unicamente através do valor analítico, da disciplina técnica e da verificação rigorosa de dados.</p>
-                <p>Acreditamos na privacidade não como um privilégio concedido, mas como uma disciplina de arquitetura — construída por escolha, mantida por métodos rigorosos de contenção e validada sob vetor de análise.</p>
-            </div>
+    <!-- ABA 1: MANIFESTO -->
+    <div id="manifesto" class="content-section active">
+        <h1>Manifesto de Segurança Operacional & Inteligência</h1>
+        
+        <div class="meta-box">
+            <div class="meta-row"><span class="meta-label">ENTIDADE:</span><span class="meta-val cyan">C-OPS CORE</span></div>
+            <div class="meta-row"><span class="meta-label">STATUS:</span><span class="meta-val">OPERAÇÃO ATIVA // NO-LOG POLICY</span></div>
+            <div class="meta-row"><span class="meta-label">DIRETRIZ:</span><span class="meta-val">ANÁLISE DE SEGURANÇA E FONTES ABERTAS</span></div>
         </div>
 
-        <div class="section-header">
-            <h2>Pilares de Atuação</h2>
-        </div>
+        <p>A <strong>C-OPS</strong> é uma iniciativa focada na consolidação de metodologias de segurança tática, pesquisa em inteligência de fontes abertas (OSINT) e análise de postura defensiva. Em um ambiente saturado de ruído e exposição de dados, a integridade operacional é mantida através da disciplina e da mitigação rigorosa de superfícies de ataque.</p>
 
-        <section class="grid">
-            <div class="card">
-                <span class="card-num">PILAR // 01</span>
-                <h3>Intelligence (OSINT)</h3>
-                <p>Mapeamento estruturado e correlação de dados públicos. Extração de inteligência acionável a partir de fontes dispersas sem interação direta com a origem.</p>
-            </div>
-            <div class="card">
-                <span class="card-num">PILAR // 02</span>
-                <h3>Operational Security (OPSEC)</h3>
-                <p>Auditoria rigorosa de pegada digital, mitigação de vetores de vazamento e implementação de doutrinas de contenção e anonimato tático.</p>
-            </div>
-            <div class="card">
-                <span class="card-num">PILAR // 03</span>
-                <h3>Social Dynamics</h3>
-                <p>Estudo de engenharia social, verossimilhança de perfis e análise de padrões comportamentais em ambientes digitais abertos e fechados.</p>
-            </div>
-        </section>
+        <h2><span class="num">01.</span> Princípios Fundamentais</h2>
+        <ul>
+            <li><strong>Invisibilidade Operacional:</strong> A coleta de dados deve ser executada sem gerar rastros ou alertas defensivos.</li>
+            <li><strong>Soberania de Informação:</strong> Validação cruzada e rigorosa de dados antes de qualquer estruturação de relatórios.</li>
+            <li><strong>Minimalismo de Superfície:</strong> Sistemas e identidades digitais devem expor apenas o estritamente necessário.</li>
+        </ul>
 
-        <div class="pgp-box">
-            <div class="pgp-header">
-                <span>COMMUNICATION PROTOCOL // SECURE CHANNEL</span>
-                <span>PGP KEY FINGERPRINT</span>
-            </div>
-            <div class="pgp-key">-----BEGIN PGP PUBLIC KEY BLOCK-----
-Version: C-OPS OpenPGP Core v4.2.0
-
-mQENBF+1aXYZ8... [KEY ID: C-OPS-INTEL-2026]
-4A8F B12D 9E34 C587 01AB 88F9 3CDE 4410 E901 2288
------END PGP PUBLIC KEY BLOCK-----</div>
-        </div>
-
-        <footer>
-            <div>&copy; 2026 C-OPS INTELLIGENCE GROUP</div>
-            <div>PRIVACY BY DESIGN // NO TRACKERS ATTACHED</div>
-        </footer>
+        <h2><span class="num">02.</span> Feed de Publicações</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Título</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>TR-2026-001</strong></td>
+                    <td>Metodologia de Análise Passiva de Dados</td>
+                    <td><span class="cyan">PUBLICADO</span></td>
+                </tr>
+                <tr>
+                    <td><strong>TR-2026-002</strong></td>
+                    <td>Doutrina de OPSEC e Counter-Footprinting</td>
+                    <td>EM DESENVOLVIMENTO</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+
+    <!-- ABA 2: RELATÓRIO TÉCNICO OSINT -->
+    <div id="relatorio" class="content-section">
+        <div style="font-family:'Courier New', monospace; font-size: 0.85rem; color:#00f2fe; margin-bottom: 5px;">// TECHNICAL REPORT // TR-2026-001</div>
+        <h1>Metodologia de Análise Passiva de Dados e Mapeamento de Entidades</h1>
+
+        <div class="meta-box">
+            <div class="meta-row"><span class="meta-label">DOCUMENT ID:</span><span class="meta-val cyan">C-OPS-TR-2026-001</span></div>
+            <div class="meta-row"><span class="meta-label">CLASSIFICAÇÃO:</span><span class="meta-val">DOUTRINA PÚBLICA // UNCLASSIFIED</span></div>
+            <div class="meta-row"><span class="meta-label">AUTOR:</span><span class="meta-val">C-OPS CORE INTELLIGENCE UNIT</span></div>
+        </div>
+
+        <h2><span class="num">01.</span> Sumário Executivo</h2>
+        <p>Este documento estabelece a diretriz técnica oficial da <strong>C-OPS</strong> para a execução de inteligência em fontes abertas (OSINT) sob o rigor da observação estritamente passiva.</p>
+
+        <h2><span class="num">02.</span> Vetores Principais de Coleta</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Camada</th>
+                    <th>Fonte Secundária</th>
+                    <th>Objetivo Analítico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1. DNS & Registros</strong></td>
+                    <td>PassiveDNS, CT Logs</td>
+                    <td>Mapeamento de subdomínios históricos</td>
+                </tr>
+                <tr>
+                    <td><strong>2. Código & Metadados</strong></td>
+                    <td>Wayback Machine, Public Repos</td>
+                    <td>Identificação de arquitetura e chaves</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2><span class="num">03.</span> Modelo de Correlação de Grafo</h2>
+        <div class="code-block">
+// EXEMPLO DE CORRELAÇÃO DE GRAFO PASSIVO (C-OPS INTEL MODEL)
+[ÂNCORA: DOMÍNIO] ──(CT Logs)──> [SUBDOMÍNIO DEV] ──(Github Search)──> [REPOSITÓRIO EXP.]
+                                                                            │
+[IDENTIDADE CONFIRMADA] <──(PGP Key Match)── [E-MAIL AUTOR] <──(Commit History)┘
+        </div>
+    </div>
+
+    <!-- ABA 3: TERMINAL INTERATIVO -->
+    <div id="terminal" class="content-section">
+        <h1>Console de Operações C-OPS</h1>
+        <p>Utilize a interface de linha de comando abaixo para consultar os módulos do sistema.</p>
+        
+        <div class="terminal-box">
+            <div id="terminalOutput" class="terminal-output">C-OPS Tactical Console v1.0.4
+Digite 'help' para listar os comandos disponíveis.
+--------------------------------------------------</div>
+            <div class="terminal-input-line">
+                <span class="terminal-prompt">c-ops@core:~$</span>
+                <input type="text" id="terminalInput" class="terminal-input" autofocus onkeydown="handleCommand(event)">
+            </div>
+        </div>
+    </div>
+
+    <!-- ABA 4: PGP KEY -->
+    <div id="pgp" class="content-section">
+        <h1>Assinatura Criptográfica PGP</h1>
+        <p>Chave pública oficial utilizada para validação de integridade e comunicações seguras da C-OPS.</p>
+        
+        <div class="code-block">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: C-OPS Security Core v2.4
+
+mQENBF/x82EBCADK1gN3m82vXzR8
+9qL3... [C-OPS OFFICIAL PGP KEY FINGERPRINT]
+09A2 B3C4 D5E6 7890 1234 5678 9ABC DEF0 1234 5678
+-----END PGP PUBLIC KEY BLOCK-----
+        </div>
+    </div>
+
+    <footer>
+        <div>OFFICIAL SYSTEM // C-OPS CORE INFRASTRUCTURE</div>
+        <div class="cyan">[END OF FILE // INDEX.HTML]</div>
+    </footer>
+</div>
+
+<script>
+    function showTab(tabId, event) {
+        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+        document.querySelectorAll('nav button').forEach(button => button.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    function handleCommand(e) {
+        if (e.key === 'Enter') {
+            const input = document.getElementById('terminalInput');
+            const output = document.getElementById('terminalOutput');
+            const cmd = input.value.trim().toLowerCase();
+            
+            output.innerHTML += `\nc-ops@core:~$ ${input.value}`;
+
+            if (cmd === 'help') {
+                output.innerHTML += `\nComandos disponíveis:\n - help    : Mostra esta lista\n - status  : Exibe o status da rede\n - intel   : Exibe relatórios ativos\n - clear   : Limpa a tela`;
+            } else if (cmd === 'status') {
+                output.innerHTML += `\n[SYSTEM STATUS]: ALL SYSTEMS OPERATIONAL\n[NODES]: 100% ONLINE\n[LOGS]: DISABLED (NO-LOG POLICY)`;
+            } else if (cmd === 'intel') {
+                output.innerHTML += `\n[PUBLICATIONS]:\n - TR-2026-001: OSINT Passive Analysis [ACTIVE]`;
+            } else if (cmd === 'clear') {
+                output.innerHTML = `C-OPS Tactical Console v1.0.4\n--------------------------------------------------`;
+            } else if (cmd !== '') {
+                output.innerHTML += `\nComando desconhecido: '${cmd}'. Digite 'help' para ajuda.`;
+            }
+
+            input.value = '';
+            output.scrollTop = output.scrollHeight;
+        }
+    }
+</script>
 
 </body>
 </html>

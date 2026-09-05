@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-OPS-TR-2026-001 | Metodologia de Análise Passiva de Dados (OSINT)</title>
+    <style>
+        body {
+            background-color: #07090e;
+            color: #cbd5e1;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #0b0f17;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .doc-id {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #00f2fe;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-top: 5px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #00f2fe;
+            padding-bottom: 10px;
+        }
+
+        .meta-box {
+            background-color: #0d121d;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+        }
+
+        .meta-row {
+            display: flex;
+            margin-bottom: 6px;
+        }
+
+        .meta-label {
+            width: 150px;
+            color: #64748b;
+        }
+
+        .meta-val {
+            color: #e2e8f0;
+            font-weight: bold;
+        }
+
+        .cyan { color: #00f2fe; }
+
+        h2 {
+            font-size: 1.2rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        h2 span.num { color: #00f2fe; font-family: 'Courier New', monospace; }
+
+        h3 { font-size: 1rem; color: #38bdf8; margin-top: 20px; }
+
+        p { margin-bottom: 15px; text-align: justify; }
+
+        .callout {
+            background-color: rgba(0, 242, 254, 0.05);
+            border-left: 3px solid #00f2fe;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .callout-title {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #00f2fe;
+            margin-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.85rem;
+        }
+
+        th {
+            background-color: #111827;
+            color: #00f2fe;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        td {
+            background-color: #0b0f19;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        tr:nth-child(even) td { background-color: #0d1322; }
+
+        .code-block {
+            background-color: #030508;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #a7f3d0;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        ul { margin-left: 20px; margin-bottom: 20px; }
+        li { margin-bottom: 8px; }
+
+        .footer-sign {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #64748b;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="doc-id">// C-OPS TECHNICAL REPORT // TR-2026-001</div>
+    <h1>Metodologia de Análise Passiva de Dados e Mapeamento de Entidades</h1>
+
+    <div class="meta-box">
+        <div class="meta-row"><span class="meta-label">DOCUMENT ID:</span><span class="meta-val cyan">C-OPS-TR-2026-001</span></div>
+        <div class="meta-row"><span class="meta-label">DATE OF ISSUE:</span><span class="meta-val">2026-09-04</span></div>
+        <div class="meta-row"><span class="meta-label">CLASSIFICATION:</span><span class="meta-val">PUBLIC DOCTRINE // UNCLASSIFIED</span></div>
+        <div class="meta-row"><span class="meta-label">AUTHOR:</span><span class="meta-val">C-OPS CORE INTELLIGENCE UNIT</span></div>
+        <div class="meta-row"><span class="meta-label">SUBJECT:</span><span class="meta-val">OSINT Methodology, Non-Attributable Data Mapping</span></div>
+    </div>
+
+    <h2><span class="num">01.</span> Sumário Executivo</h2>
+    <p>O presente documento estabelece a diretriz técnica oficial da <strong>C-OPS</strong> para a execução de inteligência em fontes abertas (OSINT) sob o rigor da observação estritamente passiva. Em cenários operacionais modernos, a interação direta com alvos ou a execução de varreduras ativas expõe o vetor de análise, alertando a entidade monitorada e comprometendo a integridade da investigação.</p>
+    <p>Esta doutrina visa padronizar a coleta, correlação e vetorização de metadados públicos, garantindo zero atrito operacional, anonimato técnico (non-attributability) e alta fidelidade na estruturação do grafo de inteligência.</p>
+
+    <h2><span class="num">02.</span> O Princípio do Influxo Passivo</h2>
+    <p>Diferente de testes de intrusão ou auditorias ativas de rede, a <strong>OSINT Passiva</strong> fundamenta-se exclusivamente no consumo de registros que já foram expostos, indexados ou armazenados por terceiros. Toda e qualquer ação que envie pacotes diretos à infraestrutura do alvo é estritamente proibida no protocolo Nível-0 da C-OPS.</p>
+
+    <div class="callout">
+        <div class="callout-title">// REGRA FUNDAMENTAL DE OPSEC COGNITIVA</div>
+        A observação passiva exige que o analista utilize repositórios secundários, caches históricos e espelhamentos públicos. Se uma consulta gerar registros de log no servidor de destino, a operação deixa de ser passiva e passa a ser considerada um vetor de varredura direta.
+    </div>
+
+    <h2><span class="num">03.</span> Vetores Principais de Coleta</h2>
+    <p>A extração de dados passiva é segmentada em quatro camadas primárias de análise de infraestrutura e presença digital:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Camada</th>
+                <th>Fonte de Dados Secundária</th>
+                <th>Objetivo Analítico</th>
+                <th>Nível de Atrito</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1. DNS & Registros</strong></td>
+                <td>PassiveDNS, Certificate Transparency Logs</td>
+                <td>Mapeamento de subdomínios e infraestrutura histórica</td>
+                <td>Zero (Consulta a terceiros)</td>
+            </tr>
+            <tr>
+                <td><strong>2. Código & Metadados</strong></td>
+                <td>Wayback Machine, Public Code Repos, EXIF</td>
+                <td>Identificação de arquitetura, chaves e autores</td>
+                <td>Zero (Espelhamento)</td>
+            </tr>
+            <tr>
+                <td><strong>3. Footprint de Rede</strong></td>
+                <td>Shodan, Censys, SecurityTrails (API Cache)</td>
+                <td>Identificação de portas abertas e serviços expostos</td>
+                <td>Zero (Banco pré-existente)</td>
+            </tr>
+            <tr>
+                <td><strong>4. Grafo Social</strong></td>
+                <td>Indexação orgânica, fóruns e arquivos de texto</td>
+                <td>Correlação de pseudônimos e reutilização de PGP</td>
+                <td>Zero (Leitura passiva)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2><span class="num">04.</span> Metodologia de Mapeamento e Correlação de Entidades</h2>
+    <p>O processo de reconstrução de identidade ou infraestrutura segue o ciclo fechado de inteligência C-OPS:</p>
+
+    <h3>4.1. Descoberta de Ponto de Ancoragem (Pivot Point)</h3>
+    <p>A investigação é iniciada por um dado estático verificado: um endereço de e-mail, um domínio, um hash PGP ou um nome de usuário. A partir desta âncora, consulta-se repositórios de transparência de certificados (CT Logs) e dados históricos de Whois para identificar ativos correlacionados sem enviar um único ping à rede de origem.</p>
+
+    <h3>4.2. Extração de Metadados de Arquivos e Código</h3>
+    <p>Documentos e código-fonte disponibilizados publicamente frequentemente contêm vazamentos inconscientes de segurança operacional:</p>
+    <ul>
+        <li><strong>Registros EXIF/XMP:</strong> Coordenadas geográficas, modelos de hardware e marcas d'água.</li>
+        <li><strong>Compilação de Binários:</strong> Caminhos locais de diretórios (Ex: <code>C:\Users\operator\code\...</code>) revelando nomes de usuários do SO.</li>
+        <li><strong>Comentários em Código:</strong> Referências a endpoints internos ou ambientes de staging.</li>
+    </ul>
+
+    <div class="code-block">
+// EXEMPLO DE CORRELAÇÃO DE GRAFO PASSIVO (C-OPS INTEL MODEL)
+[ÂNCORA: DOMÍNIO] ──(CT Logs)──> [SUBDOMÍNIO DEV] ──(Github Search)──> [REPOSITÓRIO PRIVADO EXP.]
+                                                                               │
+[IDENTIDADE CONFIRMADA] <──(PGP Key Match)── [E-MAIL AUTOR] <──(Commit History)┘
+    </div>
+
+    <h2><span class="num">05.</span> Protocolo de Isolação Operacional (OPSEC do Analista)</h2>
+    <p>Para garantir a preservação da postura defensiva durante o processo de coleta, o ambiente analítico deve seguir a especificação C-OPS Sandbox Level-1:</p>
+    <ul>
+        <li><strong>Roteamento em Camadas:</strong> Todas as requisições a APIs públicas devem ser intermediadas por instâncias efêmeras sem associação de identidade.</li>
+        <li><strong>Isolamento de Cache:</strong> Navegadores dedicados exclusivamente à análise, configurados para apagar cookies e histórico ao encerrar a sessão.</li>
+        <li><strong>Imutabilidade de Relatório:</strong> Todo dado coletado deve ser assinado criptograficamente com o carimbo de data/hora (SHA-256) para garantir a cadeia de custódia.</li>
+    </ul>
+
+    <h2><span class="num">06.</span> Conclusão</h2>
+    <p>A eficácia da inteligência de fontes abertas reside na disciplina metódica de triangulação de dados públicos e na manutenção da invisibilidade operacional. Ao adotar a análise passiva como padrão, a C-OPS assegura a superioridade informativa sem gerar alertas defensivos na entidade analisada.</p>
+
+    <div class="footer-sign">
+        <div>OFFICIAL DOCUMENT // C-OPS CORE DIRECTIVE</div>
+        <div class="cyan">[END OF FILE // C-OPS-TR-2026-001]</div>
+    </div>
+</div>
+
+</body>
+</html>
